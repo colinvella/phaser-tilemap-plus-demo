@@ -1,7 +1,7 @@
 {
-  "name": "phaser-tilemap-plus-demp",
+  "name": "phaser-tilemap-plus-demo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Demo game application for phaser-tilemap-plus",
   "main": "index.js",
   "dependencies": {
     "lodash": "^4.17.4",
