@@ -48,10 +48,13 @@ export default class PlayState extends Phaser.State {
         this.groundLayer.resizeWorld();
             
         // player stuff
-        //Add the sprite to the game and enable arcade physics on it
+        // add the sprite to the game and enable arcade physics on it
         this.player = this.add.sprite(50, this.world.centerY, 'Player');
 
         this.physics.arcade.enable(this.player);
+
+        // Plus Feature: set capsule shape
+        this.player.plus.setBodyCapsule(20, 40, 9);
         
         // set some physics on the sprite
         this.player.body.gravity.y = 2000;
@@ -102,11 +105,11 @@ export default class PlayState extends Phaser.State {
 
         this.tilemap.plus.physics.collideWith(player);
         
-        if (cursors.left.isDown ) {
+        if (cursors.left.isDown) {
             player.scale.x = -1;
             player.animations.play('walk');
             body.acceleration.x = -3000;
-        } else if (cursors.right.isDown ) {
+        } else if (cursors.right.isDown) {
             player.scale.x = +1;
             player.animations.play('walk');
             body.acceleration.x = +3000;
