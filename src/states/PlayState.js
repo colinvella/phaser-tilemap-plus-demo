@@ -66,7 +66,7 @@ export default class PlayState extends Phaser.State {
         this.player.body.tilePadding.x = 1;
         this.player.body.tilePadding.y = 1;                
 
-        this.player.body.drag.x = 1200;
+        this.player.body.drag.x = 600;
         this.player.body.bounce.x = 0;
         this.player.body.bounce.y = 0;
         this.player.body.maxVelocity.x = 250;
