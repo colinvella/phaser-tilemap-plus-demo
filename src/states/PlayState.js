@@ -13,7 +13,6 @@ export default class PlayState extends Phaser.State {
         this.tilemap = null;
         this.groundTileset = null;
         this.tilemapAnimations = null;
-        this.autoRight = false;
     }
 
     init(params) {
@@ -115,7 +114,7 @@ export default class PlayState extends Phaser.State {
         const isTouching = body.contactNormal.length() > 0;
         this.player.body.drag.x = isTouching ? 600 : 0;
 
-        if ((this.autoRight || cursors.left.isDown) && isTouching) {
+        if (cursors.left.isDown && isTouching) {
             player.scale.x = -1;
             player.animations.play('walk');
             body.acceleration.x = -3000;
@@ -134,8 +133,6 @@ export default class PlayState extends Phaser.State {
                 body.velocity.y = -700;
             }
         }    
-
-        if (cursors.down.isDown) this.autoRight = true;
     }
 
     render() {
