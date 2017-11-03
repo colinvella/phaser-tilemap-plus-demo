@@ -52,19 +52,12 @@ export default class PlayState extends Phaser.State {
         this.player = this.add.sprite(50, this.world.centerY, 'Player');
 
         this.physics.arcade.enable(this.player);
-
-        // Plus Feature: set capsule shape
-        this.player.plus.setBodyCapsule(20, 40, 9);
         
         // set some physics on the sprite
         this.player.body.gravity.y = 2000;
         this.player.body.gravity.x = 0;
         this.player.body.velocity.x = 0;
         this.player.anchor.setTo(0.5, 0.5);
-
-        // Add a touch of tile padding for the collision detection
-        this.player.body.tilePadding.x = 1;
-        this.player.body.tilePadding.y = 1;                
 
         this.player.body.drag.x = 600;
         this.player.body.bounce.x = 0;
@@ -75,8 +68,20 @@ export default class PlayState extends Phaser.State {
 
         this.player.body.width = 16;
         this.player.body.setSize(10, 38, 15, 0);
-        
-        //Create a running animation for the sprite and play it
+
+        // get start position from properties if set
+        const tilemapProperties = this.tilemap.plus.properties;
+        if (tilemapProperties.playerStartX) {
+            this.player.x  = tilemapProperties.playerStartX * 16;
+        }
+        if (tilemapProperties.playerStartY) {
+            this.player.y  = tilemapProperties.playerStartY * 16;
+        }
+
+        // Plus Feature: set capsule shape - overrides Arcade rectangle shape
+        this.player.plus.setBodyCapsule(20, 40, 9);
+                
+        // create a running animation for the sprite and play it
         this.player.animations.add('still', [0], 10, true);
         this.player.animations.add('walk', null, 10, true);
         this.player.animations.play('still');

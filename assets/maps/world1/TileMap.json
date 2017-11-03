@@ -16,6 +16,16 @@
          "height":32,
          "name":"Ground",
          "opacity":1,
+         "properties":
+            {
+             "rain":false,
+             "wind":true
+            },
+         "propertytypes":
+            {
+             "rain":"bool",
+             "wind":"bool"
+            },
          "type":"tilelayer",
          "visible":true,
          "width":128,
@@ -671,6 +681,16 @@
         }],
  "nextobjectid":86,
  "orientation":"orthogonal",
+ "properties":
+    {
+     "playerStartX":3,
+     "playerStartY":23
+    },
+ "propertytypes":
+    {
+     "playerStartX":"int",
+     "playerStartY":"int"
+    },
  "renderorder":"right-down",
  "tiledversion":"1.0.3",
  "tileheight":16,
