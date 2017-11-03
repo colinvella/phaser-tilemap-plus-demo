@@ -216,13 +216,13 @@
   </object>
   <object id="84" x="1632" y="400">
    <properties>
-    <property name="bounce" type="float" value="10"/>
+    <property name="bounce" type="float" value="5"/>
    </properties>
    <polygon points="0,0 8.625,16.125 0,16"/>
   </object>
   <object id="85" x="1888" y="400">
    <properties>
-    <property name="bounce" type="float" value="10"/>
+    <property name="bounce" type="float" value="5"/>
    </properties>
    <polygon points="0,0 -6.75,16 0,16"/>
   </object>

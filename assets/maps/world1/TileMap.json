@@ -628,7 +628,7 @@
                         }],
                  "properties":
                     {
-                     "bounce":10
+                     "bounce":5
                     },
                  "propertytypes":
                     {
@@ -660,7 +660,7 @@
                         }],
                  "properties":
                     {
-                     "bounce":10
+                     "bounce":5
                     },
                  "propertytypes":
                     {
