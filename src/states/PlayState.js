@@ -24,6 +24,8 @@ export default class PlayState extends Phaser.State {
         this.load.tilemap('TileMap', 'assets/maps/world1/TileMap.json', null, Phaser.Tilemap.TILED_JSON);
         this.load.image('Background', 'assets/graphics/world1/Background.png');
         this.load.image('Ground', 'assets/graphics/world1/Ground.png');
+        this.load.audio('Thud', 'assets/audio/thud.wav');
+        this.load.audio('Spring', 'assets/audio/spring.wav');
     }
     
     create() {
@@ -90,12 +92,24 @@ export default class PlayState extends Phaser.State {
         this.camera.follow(this.player);
         this.camera.lerp.setTo(0.1);
 
-        //Enable cursor keys so we can create some controls
+        // enable cursor keys so we can create some controls
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        // tile animation
+        // Plus Feature: tile animation
         this.tilemap.plus.animation.enable();
         this.tilemap.plus.physics.enableObjectLayer("Collision");
+
+        // add some audio
+        const thudAudio = this.add.audio("Thud");
+        const springAudio = this.add.audio("Spring");
+        
+        // Plus Feature: events
+        this.tilemap.plus.events.collisions.add(this.player, (player, shape) => {
+            if (shape.properties.bounce) {
+                springAudio.play();
+            }
+            console.log(player.body.velocity);
+        });
     }
 
     update() {
