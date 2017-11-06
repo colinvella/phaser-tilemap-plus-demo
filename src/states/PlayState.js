@@ -84,8 +84,8 @@ export default class PlayState extends Phaser.State {
         this.player.plus.setBodyCapsule(20, 40, 9);
                 
         // create a running animation for the sprite and play it
-        this.player.animations.add('still', [0], 10, true);
-        this.player.animations.add('walk', null, 10, true);
+        this.player.animations.add('still', [0], 20, true);
+        this.player.animations.add('walk', null, 20, true);
         this.player.animations.play('still');
         
         //Make the camera follow the sprite
