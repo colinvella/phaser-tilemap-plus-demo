@@ -29,8 +29,6 @@ export default class PlayState extends Phaser.State {
     }
     
     create() {
-        setUpFullScreen(this);
-        
         // change the background colour
         this.stage.backgroundColor = "#a9f0ff";
         
@@ -110,6 +108,9 @@ export default class PlayState extends Phaser.State {
             }
             console.log(player.body.velocity);
         });
+
+        // fullscreen toggle        
+        this.input.onDown.add(() => toggleFullScreen(this), this);    
     }
 
     update() {
@@ -152,14 +153,6 @@ export default class PlayState extends Phaser.State {
     render() {
         //game.debug.body(sprite, 32, 32);    
     }    
-}
-
-function setUpFullScreen(app) {
-    app.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
-
-    // fullscreen toggle        
-    app.input.onDown.add(() => toggleFullScreen(app), app);    
-        
 }
 
 function toggleFullScreen(app) {

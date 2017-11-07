@@ -7,10 +7,12 @@ export default class BootState extends Phaser.State {
     create() {
         this.initGraphics();
         this.initPhysics();
-        this.state.start("Menu", true, false, { foo: "bar"});        
+        this.state.start("Menu", true, false, { foo: "bar"});   
     }
 
-    initGraphics() {        
+    initGraphics() {    
+        this.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+
         // scale the game 2x
         this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;  
         this.scale.setUserScale(2, 2);
@@ -32,4 +34,3 @@ export default class BootState extends Phaser.State {
         this.physics.arcade.gravity.y = 1000;    
     }
 };
-

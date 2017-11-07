@@ -13,7 +13,12 @@ export default class MenuState extends Phaser.State {
         this.stage.backgroundColor = "#00a9f0";
         
         const titleText = this.addText("Phaser Tilemap Plus Demo", 16, 20);
-        const subtitleText = this.addText("Press Space to start", 12, 40);
+        const subtitleText = this.addText("Press Space to start", 12, 100);
+
+        const subtitleText2 = this.addText("Press Left Mouse button to toggle full screen mode", 12, 110);
+        
+        // fullscreen toggle        
+        this.input.onDown.add(() => toggleFullScreen(this), this);  
     }
 
     update() {
@@ -31,3 +36,13 @@ export default class MenuState extends Phaser.State {
     }
 };
 
+function toggleFullScreen(app) {
+    if (app.scale.isFullScreen)
+    {
+        app.scale.stopFullScreen();
+    }
+    else
+    {
+        app.scale.startFullScreen(false);
+    }
+}
