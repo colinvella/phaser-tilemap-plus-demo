@@ -102,11 +102,13 @@ export default class PlayState extends Phaser.State {
         const springAudio = this.add.audio("Spring");
         
         // Plus Feature: events
-        this.tilemap.plus.events.collisions.add(this.player, (player, shape) => {
+        this.tilemap.plus.events.collisions.add(this.player, (shape, oldVelocity, newVelocity, contactNormal) => {
             if (shape.properties.bounce) {
                 springAudio.play();
             }
-            console.log(player.body.velocity);
+            if (oldVelocity.y - newVelocity.y > 300) {
+                thudAudio.play();                
+            }
         });
 
         // fullscreen toggle        
