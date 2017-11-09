@@ -59,7 +59,6 @@ export default class PlayState extends Phaser.State {
         this.player.body.velocity.x = 0;
         this.player.anchor.setTo(0.5, 0.5);
 
-        //this.player.body.drag.x = 600;
         this.player.body.bounce.x = 0;
         this.player.body.bounce.y = 0;
         this.player.body.maxVelocity.x = 250;
@@ -68,8 +67,8 @@ export default class PlayState extends Phaser.State {
 
         this.player.body.width = 16;
         this.player.body.setSize(10, 38, 15, 0);
-
-        // get start position from properties if set
+     
+        // Plus Feature: get start position from custom properties if set
         const tilemapProperties = this.tilemap.plus.properties;
         if (tilemapProperties.playerStartX) {
             this.player.x  = tilemapProperties.playerStartX * 16;
@@ -100,14 +99,40 @@ export default class PlayState extends Phaser.State {
         // add some audio
         const thudAudio = this.add.audio("Thud");
         const springAudio = this.add.audio("Spring");
-        
-        // Plus Feature: events
+
+        // Plus Feature: collision events
         this.tilemap.plus.events.collisions.add(this.player, (shape, oldVelocity, newVelocity, contactNormal) => {
             if (shape.properties.bounce) {
                 springAudio.play();
             }
             if (oldVelocity.y - newVelocity.y > 300) {
                 thudAudio.play();                
+            }
+        });
+
+        // set up light effect sprite for use with region events
+        // create the light texture and sprite to use it
+        const gameWidth = this.game.width;
+        const gameHeight = this.game.height;
+        const lightTexture = this.add.bitmapData(gameWidth, gameHeight);
+        lightTexture.context.fillStyle = 'rgb(0, 0, 64)';
+        lightTexture.context.fillRect(0, 0, gameWidth, gameHeight);
+        const lightSprite = this.add.image(0, 0, lightTexture);
+        lightSprite.alpha = 0;
+        lightSprite.fixedToCamera = true;
+
+        // Plus Feature: region events
+        this.tilemap.plus.events.regions.enableObjectLayer("Events");
+        this.tilemap.plus.events.regions.onEnterAdd(this.player, (region) => {
+            // simulate entering a poorly lit area if region has custom property isDark = true
+            if (region.properties.isDark) {
+                this.add.tween(lightSprite).to( { alpha: 0.5 }, 250, "Linear", true);
+            }
+        });
+        this.tilemap.plus.events.regions.onLeaveAdd(this.player, (region) => {
+            // simulate leaving a poorly lit area
+            if (region.properties.isDark) {
+                this.add.tween(lightSprite).to( { alpha: 0.0 }, 250, "Linear", true);
             }
         });
 
@@ -125,7 +150,11 @@ export default class PlayState extends Phaser.State {
         const blocked = body.blocked;
         const touching = body.touching;
 
+        // Plus Feature: collision detectino and response
         this.tilemap.plus.physics.collideWith(player);
+
+        // Plus Feature: region events
+        this.tilemap.plus.events.regions.triggerWith(player);
 
         // apply drag only when touching
         const isTouching = body.contactNormal.length() > 0;
@@ -149,7 +178,7 @@ export default class PlayState extends Phaser.State {
             if (body.contactNormal.y < 0) {
                 body.velocity.y = -700;
             }
-        }    
+        }
     }
 
     render() {
