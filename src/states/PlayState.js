@@ -85,7 +85,7 @@ export default class PlayState extends Phaser.State {
         this.player.animations.add('walk', null, 20, true);
         this.player.animations.play('still');
         
-        //Make the camera follow the sprite
+        // make the camera follow the sprite
         this.camera.follow(this.player);
         this.camera.lerp.setTo(0.1);
 
