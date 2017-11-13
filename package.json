@@ -6,7 +6,7 @@
   "dependencies": {
     "lodash": "^4.17.4",
     "phaser-ce": "^2.9.1",
-    "phaser-tilemap-plus": "^0.3.0",
+    "phaser-tilemap-plus": "^0.9.1",
     "poly-decomp": "^0.2.1"
   },
   "devDependencies": {
