@@ -157,14 +157,17 @@ export default class PlayState extends Phaser.State {
         this.tilemap.plus.events.regions.triggerWith(player);
 
         // apply drag only when touching
-        const isTouching = body.contactNormal.length() > 0;
-        this.player.body.drag.x = isTouching ? 600 : 0;
+        const isTouching = body.plus.contactNormal.length() > 0;
+        body.drag.x = isTouching ? 600 : 0;
 
-        if (cursors.left.isDown && isTouching) {
+        const wallNormal = body.plus.contactNormals.find(cn => cn.y == 0 && cn.x != 0);
+        console.log(wallNormal);
+
+        if (cursors.left.isDown && isTouching && !wallNormal) {
             player.scale.x = -1;
             player.animations.play('walk');
             body.acceleration.x = -3000;
-        } else if (cursors.right.isDown && isTouching) {
+        } else if (cursors.right.isDown && isTouching && !wallNormal) {
             player.scale.x = +1;
             player.animations.play('walk');
             body.acceleration.x = +3000;
@@ -175,7 +178,7 @@ export default class PlayState extends Phaser.State {
             
         // Make the sprite jump when the up key is pushed
         if (cursors.up.isDown) {
-            if (body.contactNormal.y < 0) {
+            if (body.plus.contactNormal.y < 0) {
                 body.velocity.y = -700;
             }
         }
